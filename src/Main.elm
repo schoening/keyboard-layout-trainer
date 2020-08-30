@@ -4,7 +4,7 @@ import Array exposing (Array)
 import Browser
 import Browser.Events exposing (onKeyDown)
 import Code
-import Element exposing (Element, alignRight, centerY, el, fill, padding, rgb255, row, spacing, text, width)
+import Element exposing (Element, alignBottom, alignRight, centerX, centerY, column, el, fill, height, moveUp, padding, px, rgb255, row, spacing, text, width)
 import Element.Background as Background
 import Element.Border as Border
 import Element.Font as Font
@@ -185,33 +185,17 @@ view model =
             [ Font.typeface "Courier New"
             , Font.monospace
             ]
+        , width fill
+        , height fill
         ]
-        (Code.toHtml model.code model.rowIndex model.columnIndex)
-
-
-myRowOfStuff =
-    row [ width fill, centerY, spacing 30 ]
-        [ myElement
-        , myElement
-        , el [ alignRight ] myElement
-        ]
-
-
-myElement : Element msg
-myElement =
-    el
-        [ Background.color (rgb255 240 0 245)
-        , Font.color (rgb255 255 255 255)
-        , Border.rounded 3
-        , padding 30
-        , Font.family
-            [ Font.typeface "Courier New"
-            , Font.monospace
+        (column
+            [ width fill
+            , height fill
             ]
-
-        -- , htmlAttribute (style "tabindex" "0")
-        ]
-        (text "stylish!")
+            [ Code.toHtml model.code model.rowIndex model.columnIndex
+            , el [ centerX, alignBottom, moveUp 20 ] (text "Painstakingly coded using \"Programmers DVORAK\"")
+            ]
+        )
 
 
 
